@@ -1,4 +1,5 @@
-const API_URL = 'https://react-fast-pizza-api.jonas.io/api';
+// const API_URL = 'https://react-fast-pizza-api.jonas.io/api';
+const API_URL = 'https://crownglory-bakes-and-cafe-api.onrender.com';
 
 export async function getMenu() {
   const res = await fetch(`${API_URL}/menu`);
@@ -6,16 +7,26 @@ export async function getMenu() {
   // fetch won't throw error on 400 errors (e.g. when URL is wrong), so we need to do it manually. This will then go into the catch block, where the message is set
   if (!res.ok) throw Error('Failed getting menu');
 
-  const { data } = await res.json();
-  return data;
+  // console.log(res)
+  return res;
 }
 
-export async function getOrder(id) {
-  const res = await fetch(`${API_URL}/order/${id}`);
-  if (!res.ok) throw Error(`Couldn't find order #${id}`);
+export async function getCategory(categoryName) {
+  const res = await fetch(`${API_URL}/menu/${categoryName}`);
+  if (!res.ok) throw Error('Failed getting category');
+  return res;
+}
 
-  const { data } = await res.json();
-  return data;
+export async function getItem(categoryName, itemId) {
+  const res = await fetch(`${API_URL}/menu/${categoryName}/${itemId}`);
+  if (!res.ok) throw Error('Failed getting item');
+  return res;
+}
+
+export async function getOrder(orderId) {
+  const res = await fetch(`${API_URL}/order/${orderId}`);
+  if (!res.ok) throw Error(`Couldn't find order #${orderId}`);
+  return res;
 }
 
 export async function createOrder(newOrder) {

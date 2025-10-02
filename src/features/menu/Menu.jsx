@@ -1,17 +1,17 @@
-import { useLoaderData } from "react-router-dom";
-import MenuItem from "./MenuItem";
+import { Outlet, useLoaderData } from "react-router-dom";
+import Sidebar from "../../ui/Sidebar";
 
 function Menu() {
-  const menu = useLoaderData()
-  console.log(menu)
+  const categories = useLoaderData();
 
-  return <ul>
-    {menu.map(pizza => (
-      <MenuItem pizza={pizza} key={pizza.id} />
-    ))}
-  </ul>;
+  return (
+    <div className="menu">
+      <Sidebar categories={categories}/>
+
+      <Outlet />
+    </div>
+    
+  );
 }
-
-
 
 export default Menu;
