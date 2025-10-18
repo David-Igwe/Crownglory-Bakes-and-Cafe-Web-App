@@ -1,12 +1,12 @@
 import { Outlet, useLoaderData } from "react-router-dom";
-import Sidebar from "../../ui/Sidebar";
+import Navbar from "../../ui/Navbar";
 
 function Menu() {
   const categories = useLoaderData();
 
   return (
     <div className="menu">
-      <Sidebar categories={categories}/>
+      <Navbar categories={categories}  />
 
       <Outlet />
     </div>
