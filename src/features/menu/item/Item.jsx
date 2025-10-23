@@ -1,9 +1,25 @@
 import { useLoaderData } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { formatCurrency } from "../../../utils/helpers";
 import Button from "../../../ui/Button";
+import { addItem } from "../../cart/cartSlice";
 
 function Item() {
-  const { name, image, price, description } = useLoaderData();
+  const { name, image, price, description, _id } = useLoaderData();
+
+  const dispatch = useDispatch()
+
+  function handleAddToCart() {
+    const newItem = {
+      itemId: _id,
+      name,
+      quantity: 1,
+      unitPrice: price,
+      totalPrice: price * 1
+    }
+
+    dispatch(addItem(newItem))
+  }
 
   return (
     <div>
@@ -15,7 +31,7 @@ function Item() {
             {formatCurrency(price)}
           </p>
         </div>
-        <Button utilityClasses={"w-35 sm:w-45 mt-2 mb-3 md:my-0 md:absolute left-7/10 top-3/4 shadow-md/30"}>Add to Cart</Button>
+        <Button type="menuButton" onClick={handleAddToCart}>Add to Cart</Button>
       </div>
 
       

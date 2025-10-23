@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom"
 
-function LinkButton({children, to}) {
+function LinkButton({children, to, utilityClasses}) {
     const navigate = useNavigate();
-    const classes = "text-sm text-blue-500 hover:text-blue-900 hover:underline"
+    const classes = "text-sm text-blue-500 hover:text-blue-900 hover:underline " + utilityClasses
     if(to === "-1") return <button onClick={() => navigate(-1)} className={classes}>{children}</button>
     return (
         <Link to={to} className={classes}>{children}</Link>

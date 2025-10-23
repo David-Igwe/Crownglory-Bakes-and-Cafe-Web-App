@@ -1,5 +1,5 @@
-// const API_URL = 'https://react-fast-pizza-api.jonas.io/api';
 const API_URL = 'https://crownglory-bakes-and-cafe-api.onrender.com';
+// const API_URL = 'http://localhost:3000'; //for local development
 
 export async function getMenu() {
   const res = await fetch(`${API_URL}/menu`);
@@ -31,17 +31,17 @@ export async function getOrder(orderId) {
 
 export async function createOrder(newOrder) {
   try {
-    const res = await fetch(`${API_URL}/order`, {
+    const res = await fetch(`${API_URL}/order/new`, {
       method: 'POST',
       body: JSON.stringify(newOrder),
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
     });
-
     if (!res.ok) throw Error();
-    const { data } = await res.json();
+    const data = await res.json();
     return data;
+    
   } catch {
     throw Error('Failed creating your order');
   }
@@ -59,7 +59,7 @@ export async function updateOrder(id, updateObj) {
 
     if (!res.ok) throw Error();
     // We don't need the data, so we don't return anything
-  } catch (err) {
+  } catch {
     throw Error('Failed updating your order');
   }
 }

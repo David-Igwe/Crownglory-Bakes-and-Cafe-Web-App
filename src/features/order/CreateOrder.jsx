@@ -1,40 +1,17 @@
-import { useState } from "react";
 import { Form, useActionData, useNavigation } from "react-router-dom";
 import Button from "../../ui/Button";
 import { useSelector } from "react-redux";
-
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: "Mediterranean",
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: "Vegetale",
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: "Spinach and Mushroom",
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
+import { getCart } from "../cart/cartSlice";
+import EmptyCart from "../cart/EmptyCart";
 
 function CreateOrder() {
-  // const [withPriority, setWithPriority] = useState(false);
-  const cart = fakeCart;
+  const cart = useSelector(getCart)
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
-
   const formErrors = useActionData();
-  const username = useSelector(store => store.user.username)
+  const username = useSelector(state => state.user.username)
+
+  if(!cart.length) return <EmptyCart />
 
   return (
     <div className="px-4 py-6">
@@ -44,7 +21,7 @@ function CreateOrder() {
       {/* There is no need to specify action like above because the default action is the current route */}
       <Form method="POST">
         <div className="mb-5 flex gap-2 flex-col sm:flex-row sm:items-center">
-          <label className="sm:basis-40">First Name</label>
+          <label className="sm:basis-40">Full Name</label>
           <input className="input grow" type="text" name="customer" defaultValue={username} required />
         </div>
 

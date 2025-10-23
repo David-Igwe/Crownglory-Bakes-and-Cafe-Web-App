@@ -1,5 +1,7 @@
 import {redirect} from "react-router-dom";
 import { createOrder } from "../../services/apiRestaurant";
+import store  from "../../store";
+import { clearCart } from "../cart/cartSlice";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -10,22 +12,27 @@ const isValidPhone = (str) =>
 export async function createOrderAction({ request }) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  console.log(data);
+  const cart = JSON.parse(data.cart);
+  const orderPrice = cart.reduce((sum, item) => sum + item.totalPrice, 0)
+  //A random time between 30-100 mins to delivery
+  const deliveryTime = Date.now() + ((Math.floor(Math.random() * 100 - 30 + 1) + 30) * 60 * 1000);
 
   const order = {
     ...data,
-    cart: JSON.parse(data.cart),
-    priority: data.priority === "on",
+    cart,
+    orderPrice,
+    estimatedDelivery: new Date(deliveryTime).toISOString()
   };
 
-  const errors = {}
+  const errors = {};
 
-  if(!isValidPhone(order.phone)) errors.phone = 'Please enter a valid phone number'
+  if(!isValidPhone(order.phone)) errors.phone = 'Please enter a valid phone number';
 
   if(Object.keys(errors).length > 0) return errors
 
-  // const newOrder = await createOrder(order);
+  const newOrder = await createOrder(order);
 
-  // return redirect(`/order/${newOrder.id}`)
-  return null
+  store.dispatch(clearCart())
+
+  return redirect(`/order/${newOrder._id}`);
 }

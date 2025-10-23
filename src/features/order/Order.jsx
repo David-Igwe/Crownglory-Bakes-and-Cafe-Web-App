@@ -1,4 +1,3 @@
-// Test ID: IIDSAT
 // Test ID: 68dea59ca9fa764c6f48455e
 
 import { useLoaderData } from "react-router-dom";
@@ -8,41 +7,6 @@ import {
   formatDate,
 } from "../../utils/helpers";
 import OrderItem from "./OrderItem";
-
-const order = {
-  id: "ABCDEF",
-  customer: "Jonas",
-  phone: "123456789",
-  address: "Arroios, Lisbon , Portugal",
-  priority: true,
-  estimatedDelivery: "2027-04-25T10:00:00",
-  cart: [
-    {
-      pizzaId: 7,
-      name: "Napoli",
-      quantity: 3,
-      unitPrice: 16,
-      totalPrice: 48,
-    },
-    {
-      pizzaId: 5,
-      name: "Diavola",
-      quantity: 2,
-      unitPrice: 16,
-      totalPrice: 32,
-    },
-    {
-      pizzaId: 3,
-      name: "Romana",
-      quantity: 1,
-      unitPrice: 15,
-      totalPrice: 15,
-    },
-  ],
-  position: "-9.000,38.000",
-  orderPrice: 95,
-  priorityPrice: 19,
-};
 
 function Order() {
   const order = useLoaderData();
@@ -79,7 +43,7 @@ function Order() {
 
       <div className="space-y-2 bg-stone-200 px-6 py-5">
         <ul className="dive-stone-200 divide-y">
-          {cart.map(item => <OrderItem item={item} key={item._id} />)}
+          {cart.map(item => <OrderItem item={item} key={item.itemId} />)}
         </ul>
         <p className="font-bold text-right">Order Price: {formatCurrency(orderPrice)}</p>
       </div>
