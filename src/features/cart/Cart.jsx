@@ -25,7 +25,7 @@ function Cart() {
       </ul>
 
       <div className="mt-6 space-x-2">
-        <Button to="/order/new">Order pizzas</Button>
+        <Button to="/order/new">Complete Order</Button>
         <Button type="secondary" onClick={() => dispatch(clearCart())}>Clear cart</Button>
       </div>
     </div>
