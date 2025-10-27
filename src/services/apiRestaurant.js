@@ -1,5 +1,4 @@
-const API_URL = 'https://crownglory-bakes-and-cafe-api.onrender.com';
-// const API_URL = 'http://localhost:3000'; //for local development
+const API_URL = 'https://crownglory-bakes-and-cafe-api.vercel.app';
 
 export async function getMenu() {
   const res = await fetch(`${API_URL}/menu`);
@@ -31,7 +30,6 @@ export async function getOrder(orderId) {
 
 export async function createOrder(newOrder) {
   try {
-    console.log(newOrder)
     const res = await fetch(`${API_URL}/order/new`, {
       method: 'POST',
       body: JSON.stringify(newOrder),

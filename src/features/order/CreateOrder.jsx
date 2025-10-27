@@ -1,14 +1,12 @@
 import { Form, useActionData, useNavigation } from "react-router-dom";
 import Button from "../../ui/Button";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getCart } from "../cart/cartSlice";
 import EmptyCart from "../cart/EmptyCart";
-import { fetchAddress } from "../user/userSlice";
 
 function CreateOrder() {
   const cart = useSelector(getCart)
   const navigation = useNavigation();
-  const dispatch = useDispatch();
   const isSubmitting = navigation.state === "submitting";
   const formErrors = useActionData();
   const {username, status: addressStatus, position, address, error: errorAddress} = useSelector(state => state.user)
@@ -37,7 +35,7 @@ function CreateOrder() {
           
         </div>
 
-        <div className="mb-5 flex gap-2 flex-col sm:flex-row sm:items-center relative">
+        <div className="mb-5 flex gap-2 flex-col sm:flex-row sm:items-center">
           <label className="sm:basis-40">Address</label>
           <div className="grow">
             <input
@@ -49,15 +47,7 @@ function CreateOrder() {
               required
             />
             {addressStatus === "error" && <p className="mt-2 text-xs text-red-700 bg-red-100 p-2 rounded-md">{errorAddress}</p>} 
-            {position.latitude && position.longitude && <p className="mt-2 text-xs text-darkbrown-1 bg-brown-2 p-2 rounded-md">Geolocation data might be inaccurate or incomplete, feel free to edit your address</p>} 
           </div>
-
-          {!position.latitude && !position.longitude && <span className="absolute right-[3px] top-[3px] md:right-[5px] md:top-[5px] z-10">
-            <Button disabled={isLoadingAddress} type="small" onClick={(e) => {
-              e.preventDefault()
-              dispatch(fetchAddress())
-              }}>Get Position</Button>
-          </span>}
         </div>
 
         <div>

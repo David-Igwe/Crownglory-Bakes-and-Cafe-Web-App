@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getTotalCartPrice, getTotalCartQuantity } from './cartSlice';
 import { formatCurrency } from '../../utils/helpers.js';
@@ -6,6 +6,7 @@ import { formatCurrency } from '../../utils/helpers.js';
 function CartOverview() {
   const totalCartQuantity = useSelector(getTotalCartQuantity)
   const totalCartPrice = useSelector(getTotalCartPrice)
+  const location = useLocation();
 
   if(!totalCartQuantity) return null;
 
@@ -15,7 +16,7 @@ function CartOverview() {
         <span>{totalCartQuantity} items</span>
         <span>{formatCurrency(totalCartPrice)}</span>
       </p>
-      <Link to="/cart">Open cart &rarr;</Link>
+      {location.pathname !== "/cart" && <Link to="/cart">Open cart &rarr;</Link>}
     </div>
   );
 }

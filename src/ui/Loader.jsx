@@ -1,6 +1,6 @@
 function Loader() {
     return (
-        <div className="z-10 absolute bg-slate-200/20 inset-0 backdrop-blur-sm flex items-center justify-center">
+        <div className="z-10 absolute h-screen bg-slate-200/60 inset-0 backdrop-blur-lg flex items-center justify-center">
             <div className="loader"></div>
         </div>
         
