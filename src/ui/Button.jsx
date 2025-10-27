@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-function Button({children, disabled, to, utilityClasses, onClick, type="primary"}) {
+function Button({children, disabled, to, onClick, type="primary"}) {
     const base = "bg-darkbrown-1 hover:bg-darkbrown-2 focus:ring-darkbrown-2 focus:bg-darkbrown-2 inline-block cursor-pointer rounded-full text-base font-semibold tracking-wide uppercase transition-colors duration-300 focus:ring focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed text-sm"
 
     const styles = {

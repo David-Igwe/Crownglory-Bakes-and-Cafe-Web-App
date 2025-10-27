@@ -1,13 +1,16 @@
 import { useLoaderData } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { formatCurrency } from "../../../utils/helpers";
 import Button from "../../../ui/Button";
-import { addItem } from "../../cart/cartSlice";
+import { addItem, getCurrentQuantityById } from "../../cart/cartSlice";
+import QtyControl from "../../../ui/QtyControl";
 
 function Item() {
   const { name, image, price, description, _id } = useLoaderData();
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const currentQuantity = useSelector(getCurrentQuantityById(_id));
 
   function handleAddToCart() {
     const newItem = {
@@ -31,7 +34,7 @@ function Item() {
             {formatCurrency(price)}
           </p>
         </div>
-        <Button type="menuButton" onClick={handleAddToCart}>Add to Cart</Button>
+        {currentQuantity ? <QtyControl itemId={_id} type="menu" /> : <Button type="menuButton" onClick={handleAddToCart}>Add to Cart</Button>}
       </div>
 
       

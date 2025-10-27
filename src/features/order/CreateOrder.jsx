@@ -49,6 +49,7 @@ function CreateOrder() {
               required
             />
             {addressStatus === "error" && <p className="mt-2 text-xs text-red-700 bg-red-100 p-2 rounded-md">{errorAddress}</p>} 
+            {position.latitude && position.longitude && <p className="mt-2 text-xs text-darkbrown-1 bg-brown-2 p-2 rounded-md">Geolocation data might be inaccurate or incomplete, feel free to edit your address</p>} 
           </div>
 
           {!position.latitude && !position.longitude && <span className="absolute right-[3px] top-[3px] md:right-[5px] md:top-[5px] z-10">
